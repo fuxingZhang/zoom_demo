@@ -142,7 +142,7 @@ mobile
 <script>
   window.onload = function () {
     // 兼容手机
-    let eventStart, eventMove, eventEnd, getX, getY, isPc = false, base;
+    let eventStart, eventMove, eventEnd, getX, getY, base;
 
     if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i))) {
       eventStart = 'touchstart';
@@ -164,8 +164,6 @@ mobile
     generateRandomDiv(5);
 
     let left, top, width, height, x, y, target, action;
-
-
 
     document.addEventListener(eventStart, e => {
       document.addEventListener(eventMove, handlePosition, { passive: false });
