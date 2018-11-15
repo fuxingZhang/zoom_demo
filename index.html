@@ -102,7 +102,7 @@
   </style>
 </head>
 
-<body style="touch-action:none;">
+<body>
 </body>
 
 <script>
@@ -123,7 +123,6 @@
       eventEnd = 'mouseup';
       getX = e => e.clientX;
       getY = e => e.clientY;
-      isPc = true;
       base = '200px';
     }
 
@@ -135,8 +134,7 @@
 
 
     document.addEventListener(eventStart, e => {
-      // document.addEventListener(eventMove, handlePosition, { passive: false });
-      document.addEventListener(eventMove, handlePosition);
+      document.addEventListener(eventMove, handlePosition, { passive: false });
       handleStart(e);
     })
 
@@ -173,7 +171,7 @@
     }
 
     function handlePosition(e) {
-      if (isPc) preventDefault(e);
+      preventDefault(e);
 
       switch (action) {
         case 'move':

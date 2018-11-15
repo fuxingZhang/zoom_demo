@@ -44,8 +44,10 @@ mobile
       cursor: move;
       font-size: 30px;
       text-align: center;
-      vertical-align: middle;
       color: black;
+      display: flex;
+      align-items:center;
+      justify-content: center;
     }
 
     .top,
@@ -147,7 +149,6 @@ mobile
       eventEnd = 'mouseup';
       getX = e => e.clientX;
       getY = e => e.clientY;
-      isPc = true;
       base = '200px';
     }
 
@@ -156,9 +157,10 @@ mobile
 
     let left, top, width, height, x, y, target, action;
 
+
+
     document.addEventListener(eventStart, e => {
-      // document.addEventListener(eventMove, handlePosition, { passive: false });
-      document.addEventListener(eventMove, handlePosition);
+      document.addEventListener(eventMove, handlePosition, { passive: false });
       handleStart(e);
     })
 
@@ -195,7 +197,7 @@ mobile
     }
 
     function handlePosition(e) {
-      if (isPc) preventDefault(e);
+      preventDefault(e);
 
       switch (action) {
         case 'move':
@@ -248,7 +250,7 @@ mobile
         const top = parseInt(Math.random() * height) + 'px';
 
         return `
-          <div class="move" style="left:${left};top:${top};width:${base};height:${base};line-height:${base};">
+          <div class="move" style="left:${left};top:${top};width:${base};height:${base};">
             <div class="left"></div>
             <div class="right"></div>
             <div class="top"></div>
@@ -257,7 +259,7 @@ mobile
             <div class="lb"></div>
             <div class="rt"></div>
             <div class="rb"></div>
-            ${n}
+            <span>${n}<span>
           </div>
         `
       }
