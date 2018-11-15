@@ -38,15 +38,6 @@ mobile
       border: 0;
     }
 
-    .body {
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
     .move {
       background: #ccc;
       position: absolute;
@@ -54,9 +45,17 @@ mobile
       font-size: 30px;
       text-align: center;
       color: black;
+      /* 居中 */
       display: flex;
-      align-items:center;
+      align-items: center;
       justify-content: center;
+      /* 禁止选中文字 */
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     .top,
