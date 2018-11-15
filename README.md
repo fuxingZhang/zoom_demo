@@ -1,11 +1,11 @@
 # zoom_demo
 zoom demo
 
-###  demo  
+##  demo  
 
 [click here to view demo](https://fuxingzhang.github.io/zoom_demo/index.html)
 
-### description  
+## description  
 
 * Each div can be dragged, hold down the left mouse button and let go, slide up and down, left and right. Release the left mouse button to end
 * 4 sides and 4 corners of each div can be scaled, the mouse arrow changes shape to indicate selection, hold down the left mouse button and  let go, slide up and down, left and right. Release the left mouse button to end
@@ -13,11 +13,11 @@ zoom demo
 * 每个div可以拖拽，按住鼠标左键不放手，上下左右滑动，松开鼠标左键结束    
 * 每个div的4个边和4个角可以缩放，鼠标箭头变形状表示选中，按住鼠标左键不放手，上下左右滑动，松开鼠标左键结束  
 
-### screenShots  
+## screenShots  
 
 ![1](https://github.com/fuxingZhang/zoom_demo/blob/master/screenshots/1.jpg)   
 
-### code  
+## code  
 
 ```  
 <!DOCTYPE html>
