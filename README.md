@@ -14,8 +14,11 @@ zoom demo
 * 每个div的4个边和4个角可以缩放，鼠标箭头变形状表示选中，按住鼠标左键不放手，上下左右滑动，松开鼠标左键结束  
 
 ## screenShots  
-
+  
+PC  
 ![1](https://github.com/fuxingZhang/zoom_demo/blob/master/screenshots/1.jpg)   
+
+mobile  
 ![2](https://github.com/fuxingZhang/zoom_demo/blob/master/screenshots/2.jpg)   
 
 ## code  
@@ -152,8 +155,6 @@ zoom demo
     generateRandomDiv(5);
 
     let left, top, width, height, x, y, target, action;
-
-
 
     document.addEventListener(eventStart, e => {
       // document.addEventListener(eventMove, handlePosition, { passive: false });
