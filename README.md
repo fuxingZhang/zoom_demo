@@ -16,6 +16,7 @@ zoom demo
 ## screenShots  
 
 ![1](https://github.com/fuxingZhang/zoom_demo/blob/master/screenshots/1.jpg)   
+![2](https://github.com/fuxingZhang/zoom_demo/blob/master/screenshots/2.jpg)   
 
 ## code  
 
