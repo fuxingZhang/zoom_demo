@@ -35,15 +35,12 @@ zoom demo
     }
 
     .move {
-      width: 200px;
-      height: 200px;
       background: #ccc;
       position: absolute;
       cursor: move;
       font-size: 30px;
       text-align: center;
       vertical-align: middle;
-      line-height: 200px;
       color: black;
     }
 
@@ -130,18 +127,41 @@ zoom demo
 
 <script>
   window.onload = function () {
+    // 兼容手机
+    let eventStart, eventMove, eventEnd, getX, getY, isPc = false, base;
+
+    if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i))) {
+      eventStart = 'touchstart';
+      eventMove = 'touchmove';
+      eventEnd = 'touchend';
+      getX = e => e.changedTouches[0].clientX;    // targetTouches, touches
+      getY = e => e.changedTouches[0].clientY;
+      base = '100px';
+    } else {
+      eventStart = 'mousedown';
+      eventMove = 'mousemove';
+      eventEnd = 'mouseup';
+      getX = e => e.clientX;
+      getY = e => e.clientY;
+      isPc = true;
+      base = '200px';
+    }
+
     // 随机生成5个可拖拽的div
     generateRandomDiv(5);
 
     let left, top, width, height, x, y, target, action;
 
-    document.addEventListener('mousedown', e => {
-      document.addEventListener('mousemove', handlePosition);
+
+
+    document.addEventListener(eventStart, e => {
+      // document.addEventListener(eventMove, handlePosition, { passive: false });
+      document.addEventListener(eventMove, handlePosition);
       handleStart(e);
     })
 
-    document.addEventListener('mouseup', e => {
-      document.removeEventListener('mousemove', handlePosition);
+    document.addEventListener(eventEnd, e => {
+      document.removeEventListener(eventMove, handlePosition);
       handlePosition(e);
       action = '';
     })
@@ -164,8 +184,8 @@ zoom demo
         return
       }
       action = e.target.className;
-      x = e.clientX;
-      y = e.clientY;
+      x = getX(e);
+      y = getY(e);
       left = target.offsetLeft;
       top = target.offsetTop;
       width = target.offsetWidth;
@@ -173,45 +193,46 @@ zoom demo
     }
 
     function handlePosition(e) {
-      preventDefault(e);
+      if (isPc) preventDefault(e);
+
       switch (action) {
         case 'move':
-          target.style.left = left + e.clientX - x + 'px';
-          target.style.top = top + e.clientY - y + 'px';
+          target.style.left = left + getX(e) - x + 'px';
+          target.style.top = top + getY(e) - y + 'px';
           break;
         case 'left':
-          target.style.left = left + e.clientX - x + 'px';
-          target.style.width = width - e.clientX + x + 'px';
+          target.style.left = left + getX(e) - x + 'px';
+          target.style.width = width - getX(e) + x + 'px';
           break;
         case 'right':
-          target.style.width = width + e.clientX - x + 'px';
+          target.style.width = width + getX(e) - x + 'px';
           break;
         case 'top':
-          target.style.top = top + e.clientY - y + 'px';
-          target.style.height = height - e.clientY + y + 'px';
+          target.style.top = top + getY(e) - y + 'px';
+          target.style.height = height - getY(e) + y + 'px';
           break;
         case 'bottom':
-          target.style.height = height + e.clientY - y + 'px';
+          target.style.height = height + getY(e) - y + 'px';
           break;
         case 'lt':
-          target.style.left = left + e.clientX - x + 'px';
-          target.style.width = width - e.clientX + x + 'px';
-          target.style.top = top + e.clientY - y + 'px';
-          target.style.height = height - e.clientY + y + 'px';
+          target.style.left = left + getX(e) - x + 'px';
+          target.style.width = width - getX(e) + x + 'px';
+          target.style.top = top + getY(e) - y + 'px';
+          target.style.height = height - getY(e) + y + 'px';
           break;
         case 'lb':
-          target.style.left = left + e.clientX - x + 'px';
-          target.style.width = width - e.clientX + x + 'px';
-          target.style.height = height + e.clientY - y + 'px';
+          target.style.left = left + getX(e) - x + 'px';
+          target.style.width = width - getX(e) + x + 'px';
+          target.style.height = height + getY(e) - y + 'px';
           break;
         case 'rt':
-          target.style.top = top + e.clientY - y + 'px';
-          target.style.height = height - e.clientY + y + 'px';
-          target.style.width = width + e.clientX - x + 'px';
+          target.style.top = top + getY(e) - y + 'px';
+          target.style.height = height - getY(e) + y + 'px';
+          target.style.width = width + getX(e) - x + 'px';
           break;
         case 'rb':
-          target.style.width = width + e.clientX - x + 'px';
-          target.style.height = height + e.clientY - y + 'px';
+          target.style.width = width + getX(e) - x + 'px';
+          target.style.height = height + getY(e) - y + 'px';
           break;
       }
     }
@@ -223,9 +244,9 @@ zoom demo
       let generateOneDiv = n => {
         const left = parseInt(Math.random() * width) + 'px';
         const top = parseInt(Math.random() * height) + 'px';
-        
+
         return `
-          <div class="move" style="left:${left};top:${top};">
+          <div class="move" style="left:${left};top:${top};width:${base};height:${base};line-height:${base};">
             <div class="left"></div>
             <div class="right"></div>
             <div class="top"></div>
@@ -242,7 +263,7 @@ zoom demo
       let html = '';
 
       for (let i = 0; i < n; i++) {
-        html += generateOneDiv(i+1);
+        html += generateOneDiv(i + 1);
       }
 
       document.body.innerHTML = html;
