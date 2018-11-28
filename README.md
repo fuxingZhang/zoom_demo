@@ -248,8 +248,8 @@ mobile
     }
 
     function generateRandomDiv(n) {
-      const height = document.documentElement.clientHeight - 200;
-      const width = document.documentElement.clientWidth - 200;
+      const height = document.documentElement.clientHeight - base;
+      const width = document.documentElement.clientWidth - base;
 
       let generateOneDiv = n => {
         const left = parseInt(Math.random() * width) + 'px';
