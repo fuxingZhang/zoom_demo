@@ -13,6 +13,8 @@
     }
 
     .move {
+      left: 0;
+      top: 0;
       background: #ccc;
       position: absolute;
       cursor: move;
@@ -226,11 +228,11 @@
       const width = document.documentElement.clientWidth - base;
 
       let generateOneDiv = n => {
-        const left = parseInt(Math.random() * width) + 'px';
-        const top = parseInt(Math.random() * height) + 'px';
-
+        const y = parseInt(Math.random() * height) + 'px';
+        const x = parseInt(Math.random() * width) + 'px';
+        
         return `
-          <div class="move" style="left:${left};top:${top};width:${base}px;height:${base}px;">
+          <div class="move" style="transform:translate(${x},${y});width:${base}px;height:${base}px;">
             <div class="left"></div>
             <div class="right"></div>
             <div class="top"></div>

@@ -13,6 +13,8 @@
     }
 
     .move {
+      left: 0;
+      top: 0;
       background: #ccc;
       position: absolute;
       cursor: move;
@@ -170,10 +172,13 @@
       action = e.target.className;
       x = getX(e);
       y = getY(e);
-      left = target.offsetLeft;
-      top = target.offsetTop;
+      [left, top] = getTransform();
       width = target.offsetWidth;
       height = target.offsetHeight;
+    }
+
+    function getTransform() {
+      return target.style.transform.match(/\d+/g).map(n => +n)
     }
 
     function handlePosition(e) {
@@ -181,36 +186,34 @@
 
       switch (action) {
         case 'move':
-          target.style.left = left + getX(e) - x + 'px';
-          target.style.top = top + getY(e) - y + 'px';
+          target.style.transform = `translate(${left + getX(e) - x + 'px'},${top + getY(e) - y + 'px'})`;
           break;
         case 'left':
-          target.style.left = left + getX(e) - x + 'px';
+          target.style.transform = `translate(${left + getX(e) - x + 'px'},${top + 'px'})`;
           target.style.width = width - getX(e) + x + 'px';
           break;
         case 'right':
           target.style.width = width + getX(e) - x + 'px';
           break;
         case 'top':
-          target.style.top = top + getY(e) - y + 'px';
+          target.style.transform = `translate(${left + 'px'},${top + getY(e) - y + 'px'})`;
           target.style.height = height - getY(e) + y + 'px';
           break;
         case 'bottom':
           target.style.height = height + getY(e) - y + 'px';
           break;
         case 'lt':
-          target.style.left = left + getX(e) - x + 'px';
+          target.style.transform = `translate(${left + getX(e) - x + 'px'},${top + getY(e) - y + 'px'})`;
           target.style.width = width - getX(e) + x + 'px';
-          target.style.top = top + getY(e) - y + 'px';
           target.style.height = height - getY(e) + y + 'px';
           break;
         case 'lb':
-          target.style.left = left + getX(e) - x + 'px';
+        target.style.transform = `translate(${left + getX(e) - x + 'px'},${top + 'px'})`;
           target.style.width = width - getX(e) + x + 'px';
           target.style.height = height + getY(e) - y + 'px';
           break;
         case 'rt':
-          target.style.top = top + getY(e) - y + 'px';
+          target.style.transform = `translate(${left + 'px'},${top + getY(e) - y + 'px'})`;
           target.style.height = height - getY(e) + y + 'px';
           target.style.width = width + getX(e) - x + 'px';
           break;
@@ -226,11 +229,11 @@
       const width = document.documentElement.clientWidth - base;
 
       let generateOneDiv = n => {
-        const left = parseInt(Math.random() * width) + 'px';
-        const top = parseInt(Math.random() * height) + 'px';
-
+        const y = parseInt(Math.random() * height) + 'px';
+        const x = parseInt(Math.random() * width) + 'px';
+        
         return `
-          <div class="move" style="left:${left};top:${top};width:${base}px;height:${base}px;">
+          <div class="move" style="transform:translate(${x},${y});width:${base}px;height:${base}px;">
             <div class="left"></div>
             <div class="right"></div>
             <div class="top"></div>
